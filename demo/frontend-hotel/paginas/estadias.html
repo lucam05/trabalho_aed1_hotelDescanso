@@ -1,0 +1,28 @@
+<div class="card">
+    <h3>Registrar Nova Estadia</h3>
+    <p style="margin-bottom: 20px; color: #666;">Introduza os dados abaixo. O sistema irá procurar automaticamente um quarto disponível que comporte os hóspedes solicitados.</p>
+    
+    <form id="formEstadia" class="form-grid">
+        <div class="input-group">
+            <label for="codigo-cliente-estadia">Código do Cliente</label>
+            <input type="number" id="codigo-cliente-estadia" name="codigo-cliente-estadia" required>
+        </div>
+        <div class="input-group">
+            <label for="qtd-hospedes">Quantidade de Hóspedes</label>
+            <input type="number" id="qtd-hospedes" name="qtd-hospedes" min="1" required>
+        </div>
+        <div class="input-group">
+            <label for="data-entrada">Data de Entrada</label>
+            <input type="date" id="data-entrada" name="data-entrada" required>
+        </div>
+        <div class="input-group">
+            <label for="data-saida">Data de Saída</label>
+            <input type="date" id="data-saida" name="data-saida" required>
+        </div>
+        <div class="form-actions full-width">
+            <button type="submit" class="btn-primary">Buscar Quarto e Reservar</button>
+        </div>
+    </form>
+    
+    <div id="mensagem-estadia" style="margin-top: 15px; font-weight: bold;"></div>
+</div>

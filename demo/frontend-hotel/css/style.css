@@ -1,0 +1,204 @@
+/* Variáveis de Cores (Paleta Minimalista) */
+:root {
+    --primary-blue: #2B4C7E;
+    --secondary-blue: #567EBB;
+    --beige: #D9CBB8;
+    --light-grey: #F4F4F4;
+    --dark-grey: #333333;
+    --white: #FFFFFF;
+    --black: #111111;
+    --danger: #D9534F;
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: var(--light-grey);
+    color: var(--dark-grey);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .logo {
+    padding: 30px 20px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo h2 {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.sidebar .logo p {
+    font-size: 0.9rem;
+    color: var(--beige);
+}
+
+.sidebar .menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.sidebar .menu a {
+    text-decoration: none;
+    color: var(--light-grey);
+    padding: 15px 20px;
+    font-size: 1rem;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sidebar .menu a:hover, .sidebar .menu a.active {
+    background-color: var(--secondary-blue);
+    border-left: 4px solid var(--beige);
+    color: var(--white);
+}
+
+.sidebar .menu a.btn-sair {
+    margin-top: auto; /* Empurra o botão sair para baixo se houver espaço */
+    color: var(--beige);
+}
+
+.sidebar .menu a.btn-sair:hover {
+    background-color: var(--danger);
+    border-left: 4px solid var(--danger);
+    color: var(--white);
+}
+
+/* --- Main Content --- */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.topbar {
+    background-color: var(--white);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.topbar h1 {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+}
+
+/* --- Seções e Cards --- */
+.content-section {
+    padding: 30px;
+}
+
+.card {
+    background-color: var(--white);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    margin-bottom: 20px;
+    color: var(--dark-grey);
+    border-bottom: 2px solid var(--light-grey);
+    padding-bottom: 10px;
+}
+
+/* --- Formulários --- */
+.form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.input-group {
+    flex: 1 1 calc(50% - 20px); /* Ocupa 50% do espaço menos o gap */
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group.full-width {
+    flex: 1 1 100%;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--dark-grey);
+}
+
+.input-group input {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-blue);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+/* --- Botões --- */
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-blue);
+}
+
+/* --- Lógica de Navegação da SPA --- */
+
+/* Esconde todas as seções por padrão */
+.content-section {
+    display: none; 
+    padding: 30px;
+}
+
+/* Classe que será adicionada via JavaScript para mostrar a seção atual */
+.content-section.active-section {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out; /* Dá um efeito suave na troca de tela */
+}
+
+/* Animação suave de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

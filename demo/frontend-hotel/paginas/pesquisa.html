@@ -1,0 +1,26 @@
+<div class="card">
+    <h3>Central de Pesquisas</h3>
+    <p style="margin-bottom: 20px; color: #666;">Selecione o que deseja procurar e digite o nome ou código. O sistema irá filtrar automaticamente os resultados.</p>
+
+    <form id="formPesquisaGeral" class="form-grid">
+        <div class="input-group">
+            <label for="tipo-pesquisa">O que deseja procurar?</label>
+            <select id="tipo-pesquisa" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem;">
+                <option value="clientes">Clientes</option>
+                <option value="funcionarios">Funcionários</option>
+                <option value="estadias">Estadias de um Cliente</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="termo-pesquisa">Digite o Nome ou Código</label>
+            <input type="text" id="termo-pesquisa" required placeholder="Ex: 1 ou Carlos">
+        </div>
+        <div class="form-actions full-width">
+            <button type="submit" class="btn-primary">Realizar Pesquisa</button>
+        </div>
+    </form>
+
+    <div id="resultado-pesquisa" style="margin-top: 30px;">
+        <p style="text-align: center; color: #666;">Os resultados aparecerão aqui.</p>
+    </div>
+</div>
