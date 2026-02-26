@@ -29,7 +29,7 @@ public class EstadiaController {
             return ResponseEntity.badRequest().body("Erro: A data de saída deve ser posterior à data de entrada.");
         }
 
-        // 1. Verifica se o cliente existe
+        
         boolean clienteExiste = ClienteController.clientes.stream()
                 .anyMatch(c -> c.getCodigo() == novaEstadia.getCodigoCliente());
         
@@ -37,7 +37,7 @@ public class EstadiaController {
             return ResponseEntity.badRequest().body("Erro: Cliente não encontrado.");
         }
 
-        // 2. Busca um quarto desocupado que comporte a quantidade de hóspedes
+        
         Quarto quartoDisponivel = QuartoController.quartos.stream()
                 .filter(q -> !q.isOcupado() && q.getQuantidadeHospedes() >= novaEstadia.getQuantidadeHospedes())
                 .findFirst()
@@ -47,7 +47,7 @@ public class EstadiaController {
             return ResponseEntity.badRequest().body("Erro: Nenhum quarto disponível para esta quantidade de hóspedes.");
         }
 
-        // 3. Prepara os dados da estadia e ocupa o quarto
+        
         quartoDisponivel.setOcupado(true);
         novaEstadia.setNumeroQuarto(quartoDisponivel.getNumero());
         novaEstadia.setQuantidadeDiarias((int) dias);
@@ -61,7 +61,7 @@ public class EstadiaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(novaEstadia);
     }
 
-    @PostMapping("/{codigo}/checkout") // Note que mudei para POST para bater com o Frontend
+    @PostMapping("/{codigo}/checkout") 
     public ResponseEntity<Object> darBaixa(@PathVariable int codigo) {
         for (Estadia e : estadias) {
             if (e.getCodigo() == codigo) {
@@ -69,10 +69,10 @@ public class EstadiaController {
                     return ResponseEntity.badRequest().body("Erro: Esta estadia já se encontra finalizada.");
                 }
 
-                // 1. Finaliza a estadia
+               
                 e.setAtiva(false); 
 
-                // 2. Libera o quarto e pega o valor da diária
+                
                 double valorDiaria = 0.0;
                 for(Quarto q : QuartoController.quartos) {
                     if(q.getNumero() == e.getNumeroQuarto()) {
@@ -82,11 +82,11 @@ public class EstadiaController {
                     }
                 }
 
-                // 3. Calcula o total a pagar e os pontos
+                
                 double valorTotal = valorDiaria * e.getQuantidadeDiarias();
                 int pontosGanhos = e.getQuantidadeDiarias() * 10;
 
-                // 4. Adiciona os pontos ao cliente
+                
                 for(Cliente c : ClienteController.clientes) {
                     if(c.getCodigo() == e.getCodigoCliente()) {
                         c.adicionarPontosFidelidade(pontosGanhos);
@@ -94,7 +94,7 @@ public class EstadiaController {
                     }
                 }
 
-                // 5. Retorna um objeto customizado para o Frontend exibir o alerta
+                
                 Map<String, Object> resposta = new HashMap<>();
                 resposta.put("valorTotal", valorTotal);
                 resposta.put("pontosGanhos", pontosGanhos);
@@ -107,7 +107,7 @@ public class EstadiaController {
 
     @GetMapping("/cliente/{codigoCliente}")
     public ResponseEntity<List<Estadia>> listarPorCliente(@PathVariable int codigoCliente) {
-        // Retorna apenas as estadias ATIVAS do cliente para aparecer na tabela do frontend
+        
         List<Estadia> estadiasDoCliente = estadias.stream()
                 .filter(e -> e.getCodigoCliente() == codigoCliente && e.isAtiva())
                 .collect(Collectors.toList());

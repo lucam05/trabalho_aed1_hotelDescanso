@@ -1,14 +1,14 @@
 package br.treinamento.demo.domain;
 
 public class Cliente {
-    // 1. Alterado de int primitivo para a classe Integer
+   
     private Integer codigo; 
     private String nome;
     private String endereco;
     private String telefone;
     private Integer pontosFidelidade; 
 
-    // 2. Construtor vazio obrigatório para o Spring Boot montar o JSON
+    
     public Cliente() {
     }
 
@@ -20,7 +20,7 @@ public class Cliente {
         this.pontosFidelidade = 0;
     }
 
-    // 3. Getters e Setters atualizados para Integer
+    
     public Integer getCodigo() {
         return codigo;
     }

@@ -24,9 +24,7 @@ window.carregarGraficos = async function() {
     }
 };
 
-// ==========================================
-// 1. OCUPAÇÃO DE QUARTOS (Gráfico de Pizza)
-// ==========================================
+
 function desenharGraficoQuartos(quartos) {
     const ocupados = quartos.filter(q => q.ocupado).length;
     const livres = quartos.filter(q => !q.ocupado).length;
@@ -37,17 +35,15 @@ function desenharGraficoQuartos(quartos) {
             labels: ['Ocupados', 'Livres'],
             datasets: [{
                 data: [ocupados, livres],
-                backgroundColor: ['#D9534F', '#2B4C7E'] // Vermelho e Azul
+                backgroundColor: ['#D9534F', '#2B4C7E'] 
             }]
         }
     });
 }
 
-// ==========================================
-// 2. TOP CLIENTES (Gráfico de Barras Horizontais)
-// ==========================================
+
 function desenharGraficoClientes(clientes) {
-    // Ordena os clientes do maior para o menor ponto e pega os 5 primeiros
+    
     const topClientes = clientes.sort((a, b) => (b.pontosFidelidade || 0) - (a.pontosFidelidade || 0)).slice(0, 5);
     
     const nomes = topClientes.map(c => c.nome);
@@ -60,18 +56,16 @@ function desenharGraficoClientes(clientes) {
             datasets: [{
                 label: 'Pontos de Fidelidade',
                 data: pontos,
-                backgroundColor: '#D9CBB8' // Bege do tema
+                backgroundColor: '#D9CBB8' 
             }]
         },
-        options: { indexAxis: 'y' } // Deixa a barra na horizontal
+        options: { indexAxis: 'y' } 
     });
 }
 
-// ==========================================
-// 3. GASTOS POR CARGO (Gráfico de Barras)
-// ==========================================
+
 function desenharGraficoFuncionarios(funcionarios) {
-    // Agrupa e soma os salários por cargo
+    
     const gastosPorCargo = {};
     funcionarios.forEach(f => {
         if (!gastosPorCargo[f.cargo]) gastosPorCargo[f.cargo] = 0;
@@ -81,26 +75,23 @@ function desenharGraficoFuncionarios(funcionarios) {
     new Chart(document.getElementById('graficoFuncionarios'), {
         type: 'bar',
         data: {
-            labels: Object.keys(gastosPorCargo), // Nomes dos cargos
+            labels: Object.keys(gastosPorCargo), 
             datasets: [{
                 label: 'Custo Total (R$)',
-                data: Object.values(gastosPorCargo), // Valores somados
-                backgroundColor: '#567EBB' // Azul secundário
+                data: Object.values(gastosPorCargo), 
+                backgroundColor: '#567EBB' 
             }]
         }
     });
 }
 
-// ==========================================
-// 4. FATURAMENTO VS DESPESAS (Gráfico Doughnut)
-// ==========================================
+
 function desenharGraficoFinanceiro(funcionarios, estadias, quartos) {
-    // Calcula Despesas (Soma dos Salários Totais)
+   
     const despesas = funcionarios.reduce((acc, f) => acc + f.salario, 0);
 
-    // Calcula Faturamento Estimado (Multiplica diárias das estadias concluídas pelo valor do quarto)
-    let faturamento = 0;
-    estadias.filter(e => !e.ativa).forEach(estadia => { // Pega só estadias finalizadas (baixa dada)
+    
+    estadias.filter(e => !e.ativa).forEach(estadia => { 
         const quarto = quartos.find(q => q.numero === estadia.numeroQuarto);
         if (quarto) {
             faturamento += (estadia.quantidadeDiarias * quarto.valorDiaria);
@@ -113,7 +104,7 @@ function desenharGraficoFinanceiro(funcionarios, estadias, quartos) {
             labels: ['Faturamento (Entrada)', 'Salários (Saída)'],
             datasets: [{
                 data: [faturamento, despesas],
-                backgroundColor: ['#28a745', '#D9534F'] // Verde e Vermelho
+                backgroundColor: ['#28a745', '#D9534F'] 
             }]
         }
     });
